@@ -33,14 +33,14 @@ project.ext {
 
 project.with {
 	//project.name is set in the settings.gradle with rootProject.name
-	group                 "it.italiaonline.rnd.url"
+	group                 "it.italiaonline.rnd"
 	version               "0.1.0-SNAPSHOT" // (remove -SNAPSHOT for releases)
 	description           "A 'gigawatt' powered project."
 	wrapper.gradleVersion "$gradleVersion"
 }
 // [crosscompile] source and target java version
 allprojects {
-	sourceCompatibility = '1.8'
+	sourceCompatibility = '7'
 	targetCompatibility = "$sourceCompatibility"
 }
 
@@ -52,10 +52,8 @@ repositories {
 	try {
 		if ( new URL(nexusUrl).getText(connectTimeout: 5.seconds).contains('Sonatype Nexus') ) {
 			logger.warn("Adding maven repositories, nexus <$nexusUrl>")
-			maven {
-				url "${nexusUrl}/content/repositories/snapshots"
-				url "${nexusUrl}/content/repositories/releases"
-			}
+			maven { url "${nexusUrl}/content/repositories/snapshots" }
+			maven { url "${nexusUrl}/content/repositories/releases"  }
 		} else {
 			logger.warn("maven repos skipped cause <$nexusUrl> is not reachable!")
 		}
