@@ -17,25 +17,25 @@ plugins {
 	// groovy code linter
 	id 'codenarc'
 	// test code coverage plugin
-	id 'net.saliman.cobertura' version '2.4.0'
+	id 'net.saliman.cobertura' version '2.5.0'
 	// integration with nexus repository (and more)
 	id 'maven'
 }
 
 // [general] configuration
 project.ext {
-	groovyVersion       = '2.4.8'
-	gradleVersion       = '3.3'
-	spockVersion        = '1.0-groovy-2.4'
-	codenarcVersion     = '0.24.1'
-	slf4jVersion        = '1.7.23'
+	groovyVersion   = '2.4.12'
+	gradleVersion   = '4.0.1'
+	spockVersion    = '1.1-groovy-2.4'
+	codenarcVersion = '0.27.0'
+	slf4jVersion    = '1.7.25'
 }
 
 project.with {
 	//project.name is set in the settings.gradle with rootProject.name
 	group                 "it.italiaonline.rnd"
-	version               "0.1.0-SNAPSHOT" // (remove -SNAPSHOT for releases)
-	description           "A 'gigawatt' powered project."
+	version               "0.2.0-SNAPSHOT" // (remove -SNAPSHOT for releases)
+	description           "A series of classes used to manipulate URLs"
 	wrapper.gradleVersion "$gradleVersion"
 }
 // [crosscompile] source and target java version
