@@ -3,19 +3,19 @@ package it.italiaonline.rnd.url
 class QParamsFilter {
 
 	private final URL  url
-	private final List tabu
+	private final List taboo
 
 	QParamsFilter(
 		URL  url,
-		List tabu
+		List taboo
 	) {
 		this.url  = url
-		this.tabu = tabu
+		this.taboo = taboo
 	}
 
 	String filtered() {
 		def output = this.url.toString()
-		this.tabu.each { qparam ->
+		this.taboo.each { qparam ->
 			output = output.replaceAll(/${qparam}=[^&]*/,'')
 			               .replaceAll(/&&/,'&')
 			               .replaceAll(/[?]&/,'?')
