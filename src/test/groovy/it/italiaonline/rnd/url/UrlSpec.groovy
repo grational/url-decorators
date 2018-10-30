@@ -28,7 +28,6 @@ class UrlSpec extends Specification {
 			base                   | path           | qparams                || message
 			null                   | 'web-services' | [ p1: 'p1', p2: 'p2' ] || 'base url string is required'
 			'http://www.polito.it' | null           | [ p1: 'p1', p2: 'p2' ] || 'path string is required'
-			'http://www.polito.it' | 'web-services' | null                   || 'qparams are required'
 	}
 
 	@Unroll

@@ -12,7 +12,7 @@ final class Url {
 		this.base    = Objects.requireNonNull(nnm.base,'base url string is required')
 		this.path    = Objects.requireNonNull(nnm.path,'path string is required')
 
-		def qparams  = Objects.requireNonNull(nnm.qparams,'qparams are required')
+		def qparams  = nnm.qparams ?: ""
 		this.qstring = qparams.inject('') { s, k, v ->
 			def key   = Objects.requireNonNull(k,'qparam keys must be not null')
 			def value = Objects.requireNonNull(v,'qparam values must be not null')
