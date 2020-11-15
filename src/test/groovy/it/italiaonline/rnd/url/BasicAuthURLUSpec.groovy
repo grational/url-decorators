@@ -34,10 +34,10 @@ class BasicAuthURLUSpec extends Specification {
 			}
 
 		where:
-			url                                                                                  || host                          | port | path                    | auth  | username    | password
-			'https://lead-user:Js_Adlò?à!$fhF@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'tst-leadsws.italiaonline.it' | 443  | 'lead-queue/duda-leads' | true  | 'lead-user' | 'Js_Adlò?à!$fhF'
-			'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'                                  || 'tst-dab-1.pgol.net'          | 5556 | 'v1/duda/event/form'    | false | null        | null
-			'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'                                || 'tst-dab-1.pgol.net'          | 5557 | 'v1/duda/event/editor'  | false | null        | null
+			url                                                                           || host                          | port | path                    | auth  | username   | password
+			'https://username:password@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'tst-leadsws.italiaonline.it' | 443  | 'lead-queue/duda-leads' | true  | 'username' | 'password'
+			'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'                           || 'tst-dab-1.pgol.net'          | 5556 | 'v1/duda/event/form'    | false | null       | null
+			'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'                         || 'tst-dab-1.pgol.net'          | 5557 | 'v1/duda/event/editor'  | false | null       | null
 	}
 
 	@Unroll
@@ -48,10 +48,10 @@ class BasicAuthURLUSpec extends Specification {
 			basicAuthURL.uri() == expected.toURI()
 			basicAuthURL.url() == expected.toURL()
 		where:
-			input                                                                                  || expected
-				'https://lead-user:Js_Adlò?à!$fhF@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'https://tst-leadsws.italiaonline.it/lead-queue/duda-leads'
-				'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'                                  || 'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'
-				'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'                                || 'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'
+			input                                                                           || expected
+				'https://username:password@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'https://tst-leadsws.italiaonline.it/lead-queue/duda-leads'
+				'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'                           || 'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'
+				'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'                         || 'http://tst-dab-1.pgol.net:5557/v1/duda/event/editor'
 	}
 
 	@Unroll
@@ -60,9 +60,19 @@ class BasicAuthURLUSpec extends Specification {
 			new BasicAuthURL(input).toString() == input
 		where:
 			input << [
-				'https://lead-user:Js_Adlò?à!$fhF@tst-leadsws.italiaonline.it/lead-queue/duda-leads',
+				'https://username:password@tst-leadsws.italiaonline.it/lead-queue/duda-leads',
 				'http://tst-dab-1.pgol.net:5556/v1/duda/event/form'
 			]
+	}
+
+	@Unroll
+	def "Should be capable of returning the basic authentication header"() {
+		expect:
+			new BasicAuthURL(input).header() == expected
+
+		where:
+			input                                                                           || expected
+				'https://username:password@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'Basic dXNlcm5hbWU6cGFzc3dvcmQ='
 	}
 }
 // vim: ft=groovy:fdm=indent

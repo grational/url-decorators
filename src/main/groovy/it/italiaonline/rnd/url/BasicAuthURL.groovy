@@ -58,6 +58,11 @@ class BasicAuthURL {
 		return this.path
 	}
 
+	String header() {
+		String encodedBasicAuthentication = "${this.username}:${this.password}".bytes.encodeBase64().toString()
+		return "Basic ${encodedBasicAuthentication}"
+	}
+
 	URI uri() {
 		this.noAuthURL().toURI()
 	}
