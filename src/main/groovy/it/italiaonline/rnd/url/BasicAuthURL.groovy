@@ -2,7 +2,7 @@ package it.italiaonline.rnd.url
 
 import java.util.regex.Matcher
 
-class BasicAuthURL {
+final class BasicAuthURL implements URLConvertible {
 	private final String  checker =
 		$/(https?)://(?:([^:]+):([^@]+)@)?([^:/]+)(?::([1-9][0-9]{0,4}))?(?:/(.*))?/$
 	private final String  protocol
@@ -14,7 +14,7 @@ class BasicAuthURL {
 
 	BasicAuthURL(String url) {
 		if ( ! ( url ==~ checker ) )
-			throw new IllegalArgumentException("[${this.class.simpleName}] Invalid url string '${url}'")
+			throw new IllegalArgumentException("[${this.class.simpleName}] Invalid URL string '${url}'")
 		else {
 			Matcher m = (url =~ checker); m.find()
 			this.protocol = m.group(1)
@@ -44,13 +44,13 @@ class BasicAuthURL {
 
 	String username() {
 		if ( ! this.auth() )
-			throw new UnsupportedOperationException("Cannot return the url username, the url string doesn't contain any auth credentials")
+			throw new UnsupportedOperationException("Cannot return the URL username, the URL string doesn't contain any auth credentials")
 		return this.username
 	}
 
 	String password() {
 		if ( ! this.auth() )
-			throw new UnsupportedOperationException("Cannot return the url password, the url string doesn't contain any auth credentials")
+			throw new UnsupportedOperationException("Cannot return the URL password, the URL string doesn't contain any auth credentials")
 		return this.password
 	}
 
@@ -63,19 +63,22 @@ class BasicAuthURL {
 		return "Basic ${encodedBasicAuthentication}"
 	}
 
-	URI uri() {
-		this.noAuthURL().toURI()
+	@Override
+	URL toURL() {
+		this.noAuthForm().toURL()
 	}
 
-	URL url() {
-		this.noAuthURL().toURL()
+	@Override
+	URI toURI() {
+		this.noAuthForm().toURI()
 	}
 
-	private String noAuthURL() {
+	private String noAuthForm() {
 		String url
 		return ( this.port ) ? "${this.protocol}://${this.host}:${this.port}/${this.path}" : "${this.protocol}://${this.host}/${this.path}"
 	}
 
+	@Override
 	String toString() {
 		String result = "${this.protocol}://"
 		if ( this.auth() ) result += "${this.username}:${this.password}@"

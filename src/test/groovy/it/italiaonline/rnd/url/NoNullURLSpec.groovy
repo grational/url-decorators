@@ -12,7 +12,7 @@ class NoNullURLSpec extends Specification {
 		then:
 			final IllegalArgumentException exception = thrown()
 			// Alternate syntax: def exception = thrown(ArticleNotFoundException)
-			exception.message == "Input is NULL: can't go ahead."
+			exception.message == "[NoNullURL] Null URL"
 	}
 
 	def "Should NOT throw an exception where the required arg is provided"() {

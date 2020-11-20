@@ -10,7 +10,7 @@ class BasicAuthURLUSpec extends Specification {
 			new BasicAuthURL(invalidURLString)
 		then:
 			def exception = thrown(IllegalArgumentException)
-			exception.message == "[BasicAuthURL] Invalid url string '${invalidURLString}'"
+			exception.message == "[BasicAuthURL] Invalid URL string '${invalidURLString}'"
 		where:
 			invalidURLString << [
 				null,
@@ -45,8 +45,8 @@ class BasicAuthURLUSpec extends Specification {
 		given:
 			def basicAuthURL = new BasicAuthURL(input)
 		expect:
-			basicAuthURL.uri() == expected.toURI()
-			basicAuthURL.url() == expected.toURL()
+			basicAuthURL.toURI() == expected.toURI()
+			basicAuthURL.toURL() == expected.toURL()
 		where:
 			input                                                                           || expected
 				'https://username:password@tst-leadsws.italiaonline.it/lead-queue/duda-leads' || 'https://tst-leadsws.italiaonline.it/lead-queue/duda-leads'

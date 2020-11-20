@@ -1,17 +1,23 @@
 package it.italiaonline.rnd.url
 
-final class NoNullURL {
+final class NoNullURL implements URLConvertible {
 	private final URL input
 
 	NoNullURL(URL inpt) {
 		this.input = inpt
 	}
 
+	@Override
 	URL toURL() throws IllegalArgumentException {
 		if (input == null) {
-			throw new IllegalArgumentException("Input is NULL: can't go ahead.")
+			throw new IllegalArgumentException("[${this.class.simpleName}] Null URL")
 		}
 		this.input
+	}
+
+	@Override
+	URI toURI() throws IllegalArgumentException {
+		this.toURL().toURI()
 	}
 
 	@Override
