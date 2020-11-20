@@ -1,12 +1,12 @@
 package it.italiaonline.rnd.url
 
-import spock.lang.Specification
+import spock.lang.*
 
 /**
  * This class check the OpenSslHTTPCheck class against 3 types of fake
  * webservers.
  */
-class QParamsFilterSpec extends Specification {
+class QParamsFilterUSpec extends Specification {
 
   /*
    * Test against a fake HTTP2 website

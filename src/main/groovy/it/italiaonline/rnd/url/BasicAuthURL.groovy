@@ -2,7 +2,7 @@ package it.italiaonline.rnd.url
 
 import java.util.regex.Matcher
 
-final class BasicAuthURL implements URLConvertible {
+final class BasicAuthURL implements URLConvertible, AuthURL {
 	private final String  checker =
 		$/(https?)://(?:([^:]+):([^@]+)@)?([^:/]+)(?::([1-9][0-9]{0,4}))?(?:/(.*))?/$
 	private final String  protocol
@@ -38,26 +38,30 @@ final class BasicAuthURL implements URLConvertible {
 		return ( this.port ) ?: ( this.secure() ) ? 443 : 80
 	}
 
+	String path() {
+		return this.path
+	}
+
+	@Override
 	Boolean auth() {
 		return ( this.username && this.password )
 	}
 
+	@Override
 	String username() {
 		if ( ! this.auth() )
 			throw new UnsupportedOperationException("Cannot return the URL username, the URL string doesn't contain any auth credentials")
 		return this.username
 	}
 
+	@Override
 	String password() {
 		if ( ! this.auth() )
 			throw new UnsupportedOperationException("Cannot return the URL password, the URL string doesn't contain any auth credentials")
 		return this.password
 	}
 
-	String path() {
-		return this.path
-	}
-
+	@Override
 	String header() {
 		String encodedBasicAuthentication = "${this.username}:${this.password}".bytes.encodeBase64().toString()
 		return "Basic ${encodedBasicAuthentication}"

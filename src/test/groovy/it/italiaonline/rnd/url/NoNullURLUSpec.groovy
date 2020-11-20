@@ -1,8 +1,8 @@
 package it.italiaonline.rnd.url
 
-import spock.lang.Specification
+import spock.lang.*
 
-class NoNullURLSpec extends Specification {
+class NoNullURLUSpec extends Specification {
 
 	def "should throw exception when the required arg is null"()
 	throws IllegalArgumentException {
