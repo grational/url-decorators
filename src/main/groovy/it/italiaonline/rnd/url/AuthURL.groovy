@@ -1,6 +1,6 @@
 package it.italiaonline.rnd.url
 
-interface AuthURL {
+interface AuthURL extends URLConvertible {
 	Boolean auth()
 	String  username()
 	String  password()

@@ -2,7 +2,7 @@ package it.italiaonline.rnd.url
 
 import java.util.regex.Matcher
 
-final class BasicAuthURL implements URLConvertible, AuthURL {
+final class BasicAuthURL implements AuthURL {
 	private final String  checker =
 		$/(https?)://(?:([^:]+):([^@]+)@)?([^:/]+)(?::([1-9][0-9]{0,4}))?(?:/(.*))?/$
 	private final String  protocol
