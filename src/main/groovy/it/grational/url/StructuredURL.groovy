@@ -1,4 +1,4 @@
-package it.italiaonline.rnd.url
+package it.grational.url
 
 import groovy.transform.ToString
 

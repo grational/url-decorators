@@ -1,4 +1,4 @@
-package it.italiaonline.rnd.url
+package it.grational.url
 
 final class NoNullURL implements URLConvertible {
 	private final URL input

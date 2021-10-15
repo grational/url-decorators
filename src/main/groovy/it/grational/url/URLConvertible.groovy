@@ -1,4 +1,4 @@
-package it.italiaonline.rnd.url
+package it.grational.url
 
 interface URLConvertible {
 	java.net.URL toURL()
