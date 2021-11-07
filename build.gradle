@@ -11,7 +11,7 @@ plugins {
 	// required by jitpack
 	id 'maven-publish'
 	// awesome git tag / gradle version integration
-	id 'pl.allegro.tech.build.axion-release' version '1.13.3'
+	id 'pl.allegro.tech.build.axion-release' version '1.13.6'
 }
 
 // [general] configuration
@@ -32,7 +32,7 @@ project.with {
 	//project.name is set in the settings.gradle with rootProject.name
 	group                 'it.grational'
 	version               scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
-	description           "A series of classes used to manipulate URLs"
+	description           "A series of classes used to create and to manipulate URLs"
 }
 
 // [crosscompile] source and target java version
@@ -63,7 +63,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			groupId = 'com.github.grational'
-			artifactId = 'cache-containers'
+			artifactId = 'url-decorators'
 			version = scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
 
 			from components.java
