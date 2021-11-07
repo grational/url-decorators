@@ -60,11 +60,11 @@ class StructuredURLUSpec extends Specification {
 		and:
 		and:
 		where:
-			protocol | username | password | authority            | path  | qparams                || expectedStringURL
-			'http'   | null     | null     | 'www.polito.it'      | null  | null                   || 'http://www.polito.it'
-			'https'  | null     | null     | 'www.polito.it:8080' | 'api' | null                   || 'https://www.polito.it:8080/api'
-			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | 'api' | null                   || 'https://user:pass@www.polito.it:8080/api'
-			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | 'api' | [ p1: 'p1', p2: 'p2' ] || 'https://user:pass@www.polito.it:8080/api?p1=p1&p2=p2'
+			protocol | username | password | authority            | path   | qparams                || expectedStringURL
+			'http'   | null     | null     | 'www.polito.it'      | null   | null                   || 'http://www.polito.it'
+			'https'  | null     | null     | 'www.polito.it:8080' | 'api'  | null                   || 'https://www.polito.it:8080/api'
+			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | '/api' | null                   || 'https://user:pass@www.polito.it:8080/api'
+			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | '/api' | [ p1: 'p1', p2: 'p2' ] || 'https://user:pass@www.polito.it:8080/api?p1=p1&p2=p2'
 	}
 
 }
