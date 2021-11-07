@@ -38,12 +38,6 @@ final class StructuredURL implements URLConvertible {
 
 	@Override
 	String toString() {
-		println "protocol (${protocol.getClass()}) -> ${protocol}"
-		println "username (${username.getClass()}) -> ${username}"
-		println "password (${password.getClass()}) -> ${password}"
-		println "authority (${authority.getClass()}) -> ${authority}"
-		println "path (${path.getClass()}) -> ${path}"
-		println "qstring (${qstring.getClass()}) -> ${qstring}"
 		String result = "${protocol}://"
 		if (username)
 			result += "${username}:${password}@"
@@ -51,8 +45,6 @@ final class StructuredURL implements URLConvertible {
 		if (path)
 			result += path.startsWith('/') ? path : "/${path}"
 		result += qstring
-
-		println "result (${result.getClass()}) -> ${result}"
 
 		return result
 	}
