@@ -16,10 +16,9 @@ plugins {
 
 // [general] configuration
 project.ext {
-	groovyVersion   = '3.0.9'
-	gradleVersion   = '7.2'
-	spockVersion    = '2.0-groovy-3.0'
-	slf4jVersion    = '1.7.32'
+	groovyVersion = '2.5.15'
+	spockVersion  = '2.0-groovy-2.5'
+	slf4jVersion  = '1.7.32'
 }
 
 scmVersion {
@@ -30,9 +29,9 @@ scmVersion {
 
 project.with {
 	//project.name is set in the settings.gradle with rootProject.name
-	group                 'it.grational'
-	version               scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
-	description           "A series of classes used to create and to manipulate URLs"
+	group       'it.grational'
+	version     scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
+	description "A series of classes used to create and to manipulate URLs"
 }
 
 // [crosscompile] source and target java version
