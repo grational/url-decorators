@@ -5,7 +5,7 @@ import spock.lang.*
 class StructuredURLUSpec extends Specification {
 
 	@Unroll
-	def "Should raise a IllegalArgumentException if one of the required keys is null"() {
+	def "Should raise an IllegalArgumentException if one of the required keys is null"() {
 		when:
 			def urlObj = new StructuredURL (
 				protocol:  protocol,
@@ -22,6 +22,28 @@ class StructuredURLUSpec extends Specification {
 			''       | 'www.polito.it:8080' | 'web-services' | [ p1: 'p1', p2: 'p2' ] || '[StructuredURL] Invalid protocol parameter'
 			'http'   | null                 | 'web-services' | [ p1: 'p1', p2: 'p2' ] || '[StructuredURL] Invalid authority parameter'
 			'http'   | ''                   | 'web-services' | [ p1: 'p1', p2: 'p2' ] || '[StructuredURL] Invalid authority parameter'
+	}
+
+	@Unroll
+	def "Should take the origin parameter if available in place of protocol and authority"() {
+		when:
+			def urlObj = new StructuredURL (
+				origin: origin,
+				protocol:  protocol,
+				authority: authority,
+				path: path,
+				qparams: qparams
+			)
+		then:
+			expectedStringURL         == urlObj.toString()
+			expectedStringURL.toURL() == urlObj.toURL()
+			expectedStringURL.toURI() == urlObj.toURI()
+		where:
+			origin                   | protocol | authority        | path   | qparams                || expectedStringURL
+			'http://domain.ext:1234' | 'http'   | 'polito.it:8080' | null   | null                   || 'http://domain.ext:1234'
+			'http://domain.ext:1234' | null     | null             | '/api' | [ p1: 'p1', p2: 'p2' ] || 'http://domain.ext:1234/api?p1=p1&p2=p2'
+			null                     | 'http'   | 'polito.it:8080' | '/api' | [ p1: 'p1', p2: 'p2' ] || 'http://polito.it:8080/api?p1=p1&p2=p2'
+			''                       | 'http'   | 'polito.it:8080' | '/api' | [ p1: 'p1', p2: 'p2' ] || 'http://polito.it:8080/api?p1=p1&p2=p2'
 	}
 
 	@Unroll

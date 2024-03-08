@@ -8,13 +8,19 @@ final class StructuredURL implements URLConvertible {
 	private final String path
 	private final String qstring
 
-	StructuredURL(Map params) {
-		this.protocol = params.protocol ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid protocol parameter") }()
+	StructuredURL (Map params) {
+		if ( params.origin ) {
+			def splitted = params.origin.split('://')
+			this.protocol = splitted.first()
+			this.authority = splitted.last()
+		} else {
+			this.protocol = params.protocol ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid protocol parameter") }()
+			this.authority = params.authority ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid authority parameter") }()
+		}
 
 		this.username = params.username ?: ''
 		this.password = params.password ?: ''
 
-		this.authority = params.authority ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid authority parameter") }()
 
 		this.path = params.path ?: ''
 

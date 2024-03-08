@@ -11,17 +11,10 @@ plugins {
 	// required by jitpack
 	id 'maven-publish'
 	// awesome git tag / gradle version integration
-	id 'pl.allegro.tech.build.axion-release' version '1.13.6'
+	id 'pl.allegro.tech.build.axion-release' version '1.14.5'
 }
 
 // [general] configuration
-project.ext {
-	groovyVersion   = '3.0.9'
-	gradleVersion   = '7.2'
-	spockVersion    = '2.0-groovy-3.0'
-	slf4jVersion    = '1.7.32'
-}
-
 scmVersion {
 	tag {
 		prefix = 'release-'
@@ -30,27 +23,21 @@ scmVersion {
 
 project.with {
 	//project.name is set in the settings.gradle with rootProject.name
-	group                 'it.grational'
-	version               scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
-	description           "A series of classes used to create and to manipulate URLs"
-}
-
-// [crosscompile] source and target java version
-allprojects {
-	sourceCompatibility = '1.8'
-	targetCompatibility = sourceCompatibility
+	group       'it.grational'
+	version     scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
+	description "A series of classes used to create and to manipulate URLs"
 }
 
 repositories {
-	jcenter()
+	mavenCentral()
 }
 
 dependencies {
 	// Groovy language support
-	implementation "org.codehaus.groovy:groovy:$groovyVersion"
+	implementation "org.codehaus.groovy:groovy:3.0.21"
 
 	// We use the awesome Spock testing and specification framework
-	testImplementation "org.spockframework:spock-core:$spockVersion"
+	testImplementation "org.spockframework:spock-core:2.3-groovy-3.0"
 }
 
 // [tasks] configuration //
@@ -59,12 +46,13 @@ tasks.withType(Test) {
 	maxParallelForks = Runtime.runtime.availableProcessors() / 2
 }
 
+// required to work with jitpack.io
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			groupId = 'com.github.grational'
 			artifactId = 'url-decorators'
-			version = scmVersion.version // '0.5.0' (remove -SNAPSHOT for releases)
+			version = "release-${scmVersion.version}" // '0.5.0' (remove -SNAPSHOT for releases)
 
 			from components.java
 		}
