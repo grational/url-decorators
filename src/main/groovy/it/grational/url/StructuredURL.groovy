@@ -26,7 +26,7 @@ final class StructuredURL implements URLConvertible {
 
 		this.qstring = params.qparams?.inject('') { s, k, v ->
 			def key   = k ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid qparam key '${k}'") }()
-			def value = v ?: { throw new IllegalArgumentException("[${this.class.simpleName}] Invalid qparam value '${v}'") }()
+			def value = (v == null) ? '' : v
 			"${s}${s ? '&' : '?'}${key}=${value}"
 		} ?: ''
 

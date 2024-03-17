@@ -47,7 +47,7 @@ class StructuredURLUSpec extends Specification {
 	}
 
 	@Unroll
-	def "Should raise a IllegalArgumentException if one of the keys or the value is null"() {
+	def "Should raise an IllegalArgumentException if one of the keys is null"() {
 		when:
 			def urlObj = new StructuredURL (
 				protocol:  protocol,
@@ -61,7 +61,28 @@ class StructuredURLUSpec extends Specification {
 		where:
 			protocol | authority            | path           | qparams                    || message
 			'http'   | 'www.polito.it:8080' | 'web-services' | [ (null): 'p1', p2: 'p2' ] || "[StructuredURL] Invalid qparam key 'null'"
-			'http'   | 'www.polito.it:8080' | 'web-services' | [ p1: null, p2: 'p2' ]     || "[StructuredURL] Invalid qparam value 'null'"
+	}
+
+	@Unroll
+	def "Should NOT raise an IllegalArgumentException if one of the values is empty"() {
+		when:
+			def urlObj = new StructuredURL (
+				protocol:  protocol,
+				username:  username,
+				password:  password,
+				authority: authority,
+				path:      path,
+				qparams:   qparams
+			)
+		then:
+			def exception = noExceptionThrown()
+		and:
+			expectedStringURL         == urlObj.toString()
+			expectedStringURL.toURL() == urlObj.toURL()
+			expectedStringURL.toURI() == urlObj.toURI()
+		where:
+			protocol | username | password | authority            | path   | qparams              || expectedStringURL
+			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | '/api' | [ p1: '', p2: 'p2' ] || 'https://user:pass@www.polito.it:8080/api?p1=&p2=p2'
 	}
 
 	@Unroll
