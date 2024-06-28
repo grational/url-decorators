@@ -11,7 +11,7 @@ plugins {
 	// required by jitpack
 	id 'maven-publish'
 	// awesome git tag / gradle version integration
-	id 'pl.allegro.tech.build.axion-release' version '1.14.5'
+	id 'pl.allegro.tech.build.axion-release' version '1.13.14'
 }
 
 // [general] configuration
