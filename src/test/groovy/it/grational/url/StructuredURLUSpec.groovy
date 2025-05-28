@@ -110,4 +110,26 @@ class StructuredURLUSpec extends Specification {
 			'https'  | 'user'   | 'pass'   | 'www.polito.it:8080' | '/api' | [ p1: 'p1', p2: 'p2' ] || 'https://user:pass@www.polito.it:8080/api?p1=p1&p2=p2'
 	}
 
+	@Unroll
+	def "Should properly handle special characters in basic auth credentials"() {
+		when:
+			def urlObj = new StructuredURL (
+				protocol:  'https',
+				username:  username,
+				password:  password,
+				authority: 'www.example.com',
+				path:      '/api'
+			)
+		then:
+			def url = urlObj.toURL()
+			url.userInfo == expectedUserInfo
+		where:
+			username    | password      || expectedUserInfo
+			'user@test' | 'pass'        || 'user%40test:pass'
+			'user'      | 'pass:word'   || 'user:pass%3Aword'
+			'user test' | 'pass'        || 'user%20test:pass'
+			'user%20'   | 'pass'        || 'user%2520:pass'
+			'user'      | 'pass@word'   || 'user:pass%40word'
+	}
+
 }
